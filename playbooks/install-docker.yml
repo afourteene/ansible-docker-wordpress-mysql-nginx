@@ -1,0 +1,7 @@
+---
+- name: Run custom script on all hosts
+  hosts: docker_hosts
+  become: true
+  tasks:
+    - name: Installing docker on remote host
+      script: ../scripts/init-docker.sh
