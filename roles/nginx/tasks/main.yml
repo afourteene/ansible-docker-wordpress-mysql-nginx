@@ -1,0 +1,31 @@
+- name: Create nginx directory if it does not exist
+  file:
+    path: "/home/{{ ansible_user }}/{{ item }}"
+    state: directory
+  loop:
+    - nginx
+    - nginx/conf.d
+
+
+- name: create template compose file to nginx directory
+  copy:
+    src: ../files/nginx_compose.yml
+    dest: "/home/{{ ansible_user }}/nginx/docker-compose.yml"
+
+
+- name: create template compose file to nginx directory
+  template:
+    src: ../templates/nginx_conf.j2
+    dest: "/home/{{ ansible_user }}/nginx/conf.d/wp.conf"
+
+
+- name: Check docker compose status
+  community.docker.docker_compose_v2:
+    project_src: "/home/{{ ansible_user }}/nginx"
+    state: present
+    recreate: always   
+  register: compose_info
+
+- name: check status of my container
+  debug:
+    var: compose_info

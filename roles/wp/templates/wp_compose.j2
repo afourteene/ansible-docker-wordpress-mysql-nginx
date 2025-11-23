@@ -1,0 +1,18 @@
+services:
+  wordpress:
+    image: wordpress:latest
+    container_name: wordpress
+    restart: unless-stopped
+    environment:
+      WORDPRESS_DB_HOST: "{{ hostvars['node1']['ansible_host'] }}:3306"
+      WORDPRESS_DB_USER: "{{ wp_user }}"
+      WORDPRESS_DB_PASSWORD: "{{ wp_password }}"
+      WORDPRESS_DB_NAME: "{{ wp_database }}"
+    ports:
+      - "8080:80"
+    networks:
+      - wp
+
+networks:
+  wp:
+    driver: bridge

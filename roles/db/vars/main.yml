@@ -1,0 +1,5 @@
+mariadb_root_password: rootpassword
+mariadb_database: wordpress_db
+mariadb_user: dbuser
+mariadb_password: password123
+mariadb_port: 3306

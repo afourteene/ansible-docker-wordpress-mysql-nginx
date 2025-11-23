@@ -1,0 +1,6 @@
+- name: Add the user to docker group
+  user:
+    name: "{{ ansible_user }}"
+    groups: docker
+    append: yes
+  notify: restart docker

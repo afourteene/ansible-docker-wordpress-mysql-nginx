@@ -1,0 +1,21 @@
+services:
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: "{{ mariadb_root_password }}"
+      MYSQL_DATABASE: "{{ mariadb_database }}"
+      MYSQL_USER: "{{ mariadb_user }}"
+      MYSQL_PASSWORD: "{{ mariadb_password }}"
+    ports:
+      - "{{ mariadb_port }}:3306"
+    networks:
+      - db
+    volumes:
+      - mariadb_data:/var/lib/mysql
+networks:
+  db:
+    driver: bridge
+volumes:
+  mariadb_data:

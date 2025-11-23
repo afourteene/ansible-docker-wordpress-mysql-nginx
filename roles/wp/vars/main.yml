@@ -1,0 +1,3 @@
+wp_database: wordpress_db
+wp_user: root
+wp_password: rootpassword

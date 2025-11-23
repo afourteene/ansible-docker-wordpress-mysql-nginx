@@ -1,0 +1,7 @@
+
+---
+- name: Include default role
+  hosts: node3
+  become: true
+  roles:
+    - nginx

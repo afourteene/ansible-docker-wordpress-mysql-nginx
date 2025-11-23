@@ -1,0 +1,21 @@
+- name: Create wordpress directory if it does not exist
+  file:
+    path: "/home/{{ ansible_user }}/wp"
+    state: directory
+
+
+- name: create template compose file to db directory
+  template:
+    src: ../templates/wp_compose.j2
+    dest: "/home/{{ ansible_user }}/wp/docker-compose.yml"
+
+- name: Check docker compose status
+  community.docker.docker_compose_v2:
+    project_src: "/home/{{ ansible_user }}/wp"
+    state: present
+    recreate: always   
+  register: compose_info
+
+- name: check status of my container
+  debug:
+    var: compose_info
